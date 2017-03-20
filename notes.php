@@ -1,5 +1,5 @@
 <!--
-Nov 5, 2016 - roy
+Nov 5, 2016
 
 https://github.com/thephpleague/oauth2-client
 
