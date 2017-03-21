@@ -1,16 +1,30 @@
 <?php
 
+// use curl to query google contacts
+
+
+// to test in browser: http://example.com/query-ga-name.php?q=8675309
+
+
+// to use, include() this file in your own php and call:         queryGoogle("8675309");
+
+
+// potatoes
 if ( isset($_GET['q']) ) {
+// for testing & troubleshooting
 	echo "<pre>\n";
 	// 	print_r(queryGoogle($_GET['q']));
 	var_dump(queryGoogle($_GET['q']));
 }
 
-// use curl to query google contacts
+exit;
 
+
+// meat
 function queryGoogle ($q) {
 
 	// query should be numbers or letters only, no brackets, dashes, spaces or other.
+	// google will return multiple results if they exist
 
 	if ( !isset($q) ) { $names[error]='no query'; return $names;}
 	$names[q] = preg_replace('/[^A-Za-z0-9]/', '', $q);
@@ -50,8 +64,8 @@ function queryGoogle ($q) {
 		for ($x = 0; $x < $names[total_results]; $x++) {
 
 			// We add * to all our work contact names to differeniate them from personal contacts.
-			// Some results are returned with a comma on the end of the name, not sure why.
-			// use rtrim to clean things up.
+			// Sometimes results are returned with a comma on the end of the name.
+			// Use rtrim to clean things up.
 
 			$n = $result['feed']['entry'][$x]['gd$name']['gd$fullName']['$t'];
 
